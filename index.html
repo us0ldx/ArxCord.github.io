@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NightCord</title>
+<link rel="stylesheet" href="./css/index.css">
+<link rel="icon" type="image/x-icon" href="/svg/favicon.png">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="container">
+<div class="main">
+<div class="main__logo" id="logo">
+<img src="./svg/logo.png" width="100px" height="100px">
+<p>NightCord</p>
+</div>
+<div class="main__info">
+<div class="main__info__status">
+<p><span id="current__status">Current status: </span><span class="span__blue" id="current__status__status">Released</span></p>
+</div>
+<div class="main__info__language">
+<p><span id="text__button__ru" class="span__blue">Русский</span> / <span id="text__button__en">English</span></p>
+</div>
+</div>
+<div class="main__socials">
+<ul>
+<li><a href="https://discord.gg/dGXQ3TXnPv">Discord</a></li>
+<span class="span__blue">•</span>
+<li><a href="https://www.youtube.com/channel/UCxsO9CDZnYVPXBvwXAt-WWg">Youtube</a></li>
+
+
+</ul>
+</div>
+<div class="main__download">
+<p><a id="download__button"></a></p>
+<a href="https://cdn.discordapp.com/attachments/960895355296284722/960902785304498216/NightCoreFree.js" download>
+</div>
+<footer>
+<div class="main__footer">
+<p><span class="span__blue">NightCord</span> © 2022</p>
+<p>Powered by <a href="https://github.com/"><span class="span__blue">GitHub</span>.io</a></p>
+</div>
+</footer>
+</div>
+</div>
+<script src="./js/particles.js"></script>
+<script src="./js/cookie.js"></script>
+<script src="./js/protection.js"></script>
+<script>
+            if (getCookie("cookies") === 'false')
+                window.location.replace("cookie.html")
+
+            var p_ru = document.getElementById("text__button__ru")
+            var p_en = document.getElementById("text__button__en")
+
+            var download_button = document.getElementById("download__button")
+            var current_status = document.getElementById("current__status")
+            var current_status_status = document.getElementById("current__status__status")
+
+            function set_english() {
+			    p_en.classList.add("span__blue")
+                p_ru.classList.remove("span__blue")
+                document.cookie = "language=en"
+                download_button.innerText = "Download Script"
+                current_status.innerText = "Current status: "
+                current_status_status.innerText = "Released"
+            }
+
+            function set_russian() {
+                p_ru.classList.add("span__blue")
+                p_en.classList.remove("span__blue")
+                document.cookie = "language=ru"
+                download_button.innerText = "Скачать Скрипт"
+                current_status.innerText = "Текущий статус: "
+                current_status_status.innerText = "Релизнут"
+            }
+
+            p_ru.onclick = (e) => set_russian()
+            p_en.onclick = (e) => set_english()
+
+            switch (getCookie("language")) {
+                case "ru":
+                    set_russian()
+                    break
+                case "en":
+                    set_english()
+            }
+
+            var index = 0
+
+            setInterval(() => {
+                var language = getCookie("language")
+
+                if (language == "ru") {
+                    if (index != 3) {
+                        current_status_status.innerText += "."
+                        ++index
+                    } else {
+                        index = 0
+                        current_status_status.innerText = "Релизнут"
+                    }
+                } else if (language == "en") {
+                    if (index != 3) {
+                        current_status_status.innerText += "."
+                        ++index
+                    } else {
+                        index = 0
+                        current_status_status.innerText = "Released"
+                    }
+                }
+            }, 1000)
+
+            download_button.onclick = (e) => {
+			window.open("https://cdn.discordapp.com/attachments/960895355296284722/960902785304498216/NightCoreFree.js")
+            }
+
+            var logo = document.getElementById("logo")
+            logo.onclick = (e) => window.location.replace("index.html")
+        </script>
+</body>
+</html>
